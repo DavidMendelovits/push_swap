@@ -6,7 +6,7 @@
 /*   By: dmendelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 15:15:00 by dmendelo          #+#    #+#             */
-/*   Updated: 2018/11/07 18:11:07 by dmendelo         ###   ########.fr       */
+/*   Updated: 2018/11/07 19:48:15 by dmendelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,18 @@ void			rrr(t_stack **a, t_stack **b)
 	write(1, __func__, sizeof(__func__));
 }
 
+int				find_median(t_stack *a)
+{
+//maybe harder than I thought
+}
+
+void			sort(t_stack **a, int len)
+{
+	int					median;
+
+	median = find_median(*a);
+}
+
 int				push_swap(int argc, char **argv)
 {
 	t_stack				*stack_a;
@@ -240,7 +252,8 @@ int				push_swap(int argc, char **argv)
 		p += 1;
 	}
 	print_stack(stack_a);
-//	swap_a(stack);
+	sort(&stack_a, p)
+	//	swap_a(stack);
 //	while (stack_a)
 //	{
 //		push_ab(&stack_b, &stack_a);
@@ -249,8 +262,8 @@ int				push_swap(int argc, char **argv)
 //		printf("a:\n");
 //		print_stack(stack_a);
 //	}
-	rotate_down(&stack_a);
-	print_stack(stack_a);
+//	rotate_down(&stack_a);
+//	print_stack(stack_a);
 	return (1);
 }
 
