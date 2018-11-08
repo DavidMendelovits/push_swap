@@ -6,7 +6,7 @@
 /*   By: dmendelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 15:15:00 by dmendelo          #+#    #+#             */
-/*   Updated: 2018/11/07 17:43:52 by dmendelo         ###   ########.fr       */
+/*   Updated: 2018/11/07 18:11:07 by dmendelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,25 +105,27 @@ void			ft_swap(int *a, int *b)
 	*b = tmp;
 }
 
-void			swap_b(t_stack *head)
+void			sb(t_stack *head)
 {
 	ft_swap(&head->num, &head->next->num);
+	write(1, "sb\n", 3);
 }
 
-void			swap_a(t_stack *head)
+void			sa(t_stack *head)
 {
 	ft_swap(&head->num, &head->next->num);
+	write(1, "sa\n", 3);
 }
 
-void			swap_ab(t_stack *a, t_stack *b)
+void			ss(t_stack *a, t_stack *b)
 {
-	swap_a(a);
-	swap_b(b);
+	ft_swap(&a->num, &a->next->num);
+	ft_swap(&b->num, &b->next->num);
+	write(1, "ss\n", 3);
 }
 
 void			push_ab(t_stack **a, t_stack **b)
 {
-	printf("->%s\n", __func__);
 	int					num;
 
 	num = pop(b);
@@ -133,11 +135,13 @@ void			push_ab(t_stack **a, t_stack **b)
 void			pa(t_stack **a, t_stack **b)
 {
 	push_ab(a, b);
+	write(1, "pa\n", 3);
 }
 
 void			pb(t_stack **b, t_stack **a)
 {
 	push_ab(b, a);
+	write(1, "pb\n", 3);
 }
 
 void			rotate_up(t_stack **stack)
@@ -154,10 +158,24 @@ void			rotate_up(t_stack **stack)
 	}
 }
 
+void			ra(t_stack **a)
+{
+	rotate_up(a);
+	write(1, "ra\n", 3);
+}
+
+void			rb(t_stack **b)
+{
+	rotate_up(b);
+	write(1, "rb\n", 3);
+}
+
+
 void			rr(t_stack **a, t_stack **b)
 {
 	rotate_up(a);
 	rotate_up(b);
+	write(1, __func__, sizeof(__func__));
 }
 
 void			rotate_down(t_stack **stack)
@@ -179,10 +197,25 @@ void			rotate_down(t_stack **stack)
 	}
 }
 
-void			rra(t_stack **a, t_stack **b)
+void			rra(t_stack **a)
+{
+	rotate_down(a);
+	write(1, __func__, sizeof(__func__));
+	write(1, "\n", 1);
+}
+
+void			rrb(t_stack **b)
+{
+	rotate_down(b);
+	write(1, __func__, sizeof(__func__));
+	write(1, "\n", 1);
+}
+
+void			rrr(t_stack **a, t_stack **b)
 {
 	rotate_down(a);
 	rotate_down(b);
+	write(1, __func__, sizeof(__func__));
 }
 
 int				push_swap(int argc, char **argv)
