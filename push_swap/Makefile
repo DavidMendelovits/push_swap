@@ -6,7 +6,7 @@
 #    By: dmendelo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 15:53:57 by dmendelo          #+#    #+#              #
-#    Updated: 2018/11/07 16:01:22 by dmendelo         ###   ########.fr        #
+#    Updated: 2018/11/07 17:01:43 by dmendelo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,13 @@ INC = -I inc -I ../libft/
 OBJ_DIR = $(SRC_DIR)/obj
 OBJ = $(patsubst %, $(OBJ_DIR)/%.o, $(SRC))
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
 		@printf "\nCompiling push_swap\n"
-		@gcc $(CFLAGS) $(LIBFT) $(OBJ) -o $(NAME)
+		@gcc $(CFLAGS) $(LIBFT) $(OBJ) -fsanitize=address -o $(NAME)
 		@echo "Done!\n"
 
 $(LIBFT):
