@@ -6,7 +6,7 @@
 /*   By: dmendelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 15:15:00 by dmendelo          #+#    #+#             */
-/*   Updated: 2018/11/07 19:48:15 by dmendelo         ###   ########.fr       */
+/*   Updated: 2018/11/09 14:10:49 by dmendelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,32 +218,132 @@ void			rrr(t_stack **a, t_stack **b)
 	write(1, __func__, sizeof(__func__));
 }
 
-int				find_median(t_stack *a)
+void			print_ints(int *set, int n)
 {
-//maybe harder than I thought
+	int					i;
+
+	i = 0;
+	while (i < n)
+	{
+		printf("%d\n", set[i]);
+		i += 1;
+	}
 }
 
-void			sort(t_stack **a, int len)
+void			sort_ints(int **set, int n)
+{
+	int					*local;
+	int					sorted;
+	int					p;
+
+	local = *set;
+	sorted = 0;
+	while (!sorted)
+	{
+		sorted = 1;
+		p = n - 1;
+		while (p > 0)
+		{
+			if (local[p] < local[p - 1])
+			{
+				ft_swap(&local[p], &local[p - 1]);
+				sorted = 0;
+			}
+			p -= 1;
+		}
+	}
+}
+
+int				find_median(int *set, int n)
+{
+	sort_ints(&set, n);
+//	print_ints(set, n);
+	return (set[n / 2]);
+}
+
+void			insert_aux(t_stack **a, t_stack **b)
+{
+	if ((*b) && (*b)->num > (*a)->num)
+	{
+		pb(b, a);
+		sb(*b);
+	}
+	else
+	{
+		pb(b, a);
+	}
+}
+
+t_stack			*split_stacks(t_stack **a, int a_len, int median)
+{
+	int					p;
+	t_stack 			*b;
+	int					b_len;
+
+	b_len = 0;
+	b = NULL;
+	p = 0;
+	while (p < a_len)
+	{
+		if ((*a)->num < median)
+		{
+			insert_aux(a, &b);
+//			pb(&b, a);
+		}
+		else
+		{
+			ra(a);
+		}
+		p += 1;
+	}
+	return (b);
+}
+
+void			sort_a(t_stack **a, t_stack *b)
+{
+	int					sorted;
+
+	sorted = 0;
+	while (!sorted)
+	{
+
+	}
+}
+
+void			sort(t_stack **a, int *num_set, int len)
 {
 	int					median;
+	t_stack				*b;
 
-	median = find_median(*a);
+	b = NULL;
+	median = find_median(num_set, len - 1);
+	printf("median = %d\n", median);
+	b = split_stacks(a, len, median);	
+	print_stack(*a);
+	printf("a^---------b>\n");
+	print_stack(b);
+	sort_a(a, &b);
 }
 
 int				push_swap(int argc, char **argv)
 {
 	t_stack				*stack_a;
 	t_stack				*stack_b;
+	int					*set;
 	int					p;
+	int					i;
 
+	i = 0;
 	stack_a = NULL;
 	stack_b = NULL;
 	p = 1;
+	set = malloc(sizeof(int) * (argc - 1));
 	while (p < argc)
 	{
 		if (is_num(argv[p]))
 		{
 			push_to_back(&stack_a, ft_atoi(argv[p]));
+			set[i++] = ft_atoi(argv[p]);
 		}
 		else
 		{
@@ -252,18 +352,7 @@ int				push_swap(int argc, char **argv)
 		p += 1;
 	}
 	print_stack(stack_a);
-	sort(&stack_a, p)
-	//	swap_a(stack);
-//	while (stack_a)
-//	{
-//		push_ab(&stack_b, &stack_a);
-//		printf("b:\n");
-//		print_stack(stack_b);
-//		printf("a:\n");
-//		print_stack(stack_a);
-//	}
-//	rotate_down(&stack_a);
-//	print_stack(stack_a);
+	sort(&stack_a, set, p);
 	return (1);
 }
 
